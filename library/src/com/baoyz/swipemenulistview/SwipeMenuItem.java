@@ -12,7 +12,6 @@ import android.graphics.drawable.Drawable;
  */
 public class SwipeMenuItem {
 
-	private int id;
 	private Context mContext;
 	private String title;
 	private Drawable icon;
@@ -25,13 +24,6 @@ public class SwipeMenuItem {
 		mContext = context;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public int getTitleColor() {
 		return titleColor;

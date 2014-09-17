@@ -11,7 +11,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 /**
- * 
+ * 这儿是那个listview
  * @author baoyz
  * @date 2014-8-18
  * 
