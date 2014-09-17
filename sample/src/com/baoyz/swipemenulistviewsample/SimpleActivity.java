@@ -90,30 +90,28 @@ public class SimpleActivity extends Activity {
 		mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			@Override
 			public void onMenuItemClick(int position, SwipeMenu menu, int index) {
-				ApplicationInfo item = mAppList.get(position);
 				switch (index) {
 				case 0:
 					// open
-					open(item);
+					Toast.makeText(getApplicationContext(), "Open App",
+							Toast.LENGTH_SHORT).show();
 					break;
 				case 1:
-					// delete
-//					delete(item);
 					mAppList.remove(position);
 					mAdapter.notifyDataSetChanged();
 					break;
 				}
 			}
 		});
-		
+
 		// set SwipeListener
 		mListView.setOnSwipeListener(new OnSwipeListener() {
-			
+
 			@Override
 			public void onSwipeStart(int position) {
 				// swipe start
 			}
-			
+
 			@Override
 			public void onSwipeEnd(int position) {
 				// swipe end
@@ -121,51 +119,20 @@ public class SimpleActivity extends Activity {
 		});
 
 		// other setting
-//		listView.setCloseInterpolator(new BounceInterpolator());
-		
+		// listView.setCloseInterpolator(new BounceInterpolator());
+
 		// test item long click
 		mListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Toast.makeText(getApplicationContext(), position + " long click", 0).show();
+				Toast.makeText(getApplicationContext(),
+						position + " long click", 0).show();
 				return false;
 			}
 		});
-		
-	}
 
-	private void delete(ApplicationInfo item) {
-		// delete app
-		try {
-			Intent intent = new Intent(Intent.ACTION_DELETE);
-			intent.setData(Uri.fromParts("package", item.packageName, null));
-			startActivity(intent);
-		} catch (Exception e) {
-		}
-	}
-
-	private void open(ApplicationInfo item) {
-		// open app
-		Intent resolveIntent = new Intent(Intent.ACTION_MAIN, null);
-		resolveIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-		resolveIntent.setPackage(item.packageName);
-		List<ResolveInfo> resolveInfoList = getPackageManager()
-				.queryIntentActivities(resolveIntent, 0);
-		if (resolveInfoList != null && resolveInfoList.size() > 0) {
-			ResolveInfo resolveInfo = resolveInfoList.get(0);
-			String activityPackageName = resolveInfo.activityInfo.packageName;
-			String className = resolveInfo.activityInfo.name;
-
-			Intent intent = new Intent(Intent.ACTION_MAIN);
-			intent.addCategory(Intent.CATEGORY_LAUNCHER);
-			ComponentName componentName = new ComponentName(
-					activityPackageName, className);
-
-			intent.setComponent(componentName);
-			startActivity(intent);
-		}
 	}
 
 	class AppAdapter extends BaseAdapter {
